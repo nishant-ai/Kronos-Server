@@ -1,9 +1,17 @@
-from kronos.views import home, product
+from kronos.views import *
 
-from django.contrib import admin
-from django.urls import path
+from rest_framework.routers import DefaultRouter
+from django.urls import path, include
+
+router = DefaultRouter()
+
+router.register(r"customer", CustomerViewSet, basename="customer")
+router.register(r"sentiment", SentimentViewSet, basename="sentiment")
+router.register(r"sale", SaleViewSet, basename="sale")
+
+urlpatterns = router.urls
 
 urlpatterns = [
-    path("", home),
-    path("product/", product)
+    path("", include(router.urls)),
+    path("product/", ProductAPI.as_view()),
 ]
