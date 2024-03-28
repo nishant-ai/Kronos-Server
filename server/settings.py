@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "kronos",
+    "dashboard",
     "rest_framework",
     
 ]

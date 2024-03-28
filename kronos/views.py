@@ -90,4 +90,3 @@ class SentimentAPI(APIView):
 class SaleViewSet(viewsets.ModelViewSet):
     serializer_class = SaleSerializer
     queryset = Sale.objects.all()
-
