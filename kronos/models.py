@@ -27,7 +27,8 @@ class Sentiment(models.Model):
     ]
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    sentiment = models.CharField(max_length=3, choices=SENTIMENT)
+    comment = models.CharField(max_length=300)
+    sentiment = models.CharField(max_length=3, choices=SENTIMENT, blank=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
 
