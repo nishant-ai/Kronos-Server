@@ -1,10 +1,9 @@
 from django.db import models
 
-
 class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    recommended_price = models.DecimalField(max_digits=5, decimal_places=2)
+    recommended_price = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
 
 
 class Customer(models.Model):
@@ -38,3 +37,4 @@ class Sale(models.Model):
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     
+

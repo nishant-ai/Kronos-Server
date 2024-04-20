@@ -13,8 +13,12 @@ urlpatterns = router.urls
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("product/", ProductAPI.as_view()),
+    path("register/", RegisterAPI.as_view()),
+    path("login/", LoginAPI.as_view()),
+    path("products/", ProductAPI.as_view()),
+    path("customers/", get_customers),
+    path("product/<int:product_id>/", get_product),
     path("sentiment/", SentimentAPI.as_view()),
     path("satisfaction/", satisfaction_rate),
-    path("products/", prods_by_sentiment) # localhost:8000/api/products?sentiment=NEG sample path
+    # path("products/", prods_by_sentiment) # localhost:8000/api/products?sentiment=NEG sample path
 ]
