@@ -23,57 +23,57 @@ def get_product(request, product_id):
     return Response(serializer.data)
 
 
-class RegisterAPI(APIView):
-    def post(self, request):
-        data = request.data
-        serializer = RegisterSerializer(data=data)
+# class RegisterAPI(APIView):
+#     def post(self, request):
+#         data = request.data
+#         serializer = RegisterSerializer(data=data)
 
-        if not serializer.is_valid():
-            return Response({
-                "status": False,
-                "message": serializer.errors
-            }, status.HTTP_400_BAD_REQUEST)
+#         if not serializer.is_valid():
+#             return Response({
+#                 "status": False,
+#                 "message": serializer.errors
+#             }, status.HTTP_400_BAD_REQUEST)
 
-        serializer.save()
+#         serializer.save()
         
-        return Response({
-            "status": "True",
-            "message": "User Created",
-        }, status.HTTP_201_CREATED)
+#         return Response({
+#             "status": "True",
+#             "message": "User Created",
+#         }, status.HTTP_201_CREATED)
     
-class LoginAPI(APIView):
-    def post(self ,request):
-        data = request.data
-        serializer = LoginSerializer(data = data)
+# class LoginAPI(APIView):
+#     def post(self ,request):
+#         data = request.data
+#         serializer = LoginSerializer(data = data)
 
-        if not serializer.is_valid():
-            return Response({
-                "status": False,
-                "message": serializer.errors
-            }, status.HTTP_400_BAD_REQUEST)
+#         if not serializer.is_valid():
+#             return Response({
+#                 "status": False,
+#                 "message": serializer.errors
+#             }, status.HTTP_400_BAD_REQUEST)
         
-        user = authenticate(username = serializer.data["username"], password = serializer.data["password"])
-        if not user:
-            return Response({
-                "status": False,
-                "message": "Invalid Credentials"
-            }, status.HTTP_400_BAD_REQUEST)
+#         user = authenticate(username = serializer.data["username"], password = serializer.data["password"])
+#         if not user:
+#             return Response({
+#                 "status": False,
+#                 "message": "Invalid Credentials"
+#             }, status.HTTP_400_BAD_REQUEST)
 
-        token, _ = Token.objects.get_or_create(user=user)
+#         token, _ = Token.objects.get_or_create(user=user)
 
-        return Response({
-            "status": "True",
-            "message": "User Logged In",
-            "token": str(token)
-        }, status.HTTP_201_CREATED)
+#         return Response({
+#             "status": "True",
+#             "message": "User Logged In",
+#             "token": str(token)
+#         }, status.HTTP_201_CREATED)
 
-@api_view(["GET"])
-def get_customers(request):
-    # Query all users excluding superusers
-    customers = User.objects.filter(is_superuser=False)
-    serializer = UserSerializer(customers, many=True)
+# @api_view(["GET"])
+# def get_customers(request):
+#     # Query all users excluding superusers
+#     customers = User.objects.filter(is_superuser=False)
+#     serializer = UserSerializer(customers, many=True)
 
-    return Response(serializer.data)
+#     return Response(serializer.data)
 
 class ProductAPI(APIView):
     def get(self, request):
