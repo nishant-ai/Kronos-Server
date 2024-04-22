@@ -119,29 +119,6 @@ def low_perf_prods(request):
 
         return Response(serializer.data)
 
-
-# PRODUCT PAGE
-# @api_view(["GET"])
-# def prods_by_sentiment(request):
-#     sentiment = request.GET.get("sentiment")
-#     objs = Sentiment.objects.filter(sentiment=sentiment)
-#     comments = [obj.comment for obj in objs]
-
-#     return Response(comments)
-
-@api_view(["GET"])
-def comments_by_prod(request):
-    sentiment = request.GET.get("sentiment")
-    product = request.GET.get("product")
-
-    if sentiment == "ALL":
-        comments = Sentiment.objects.filter(product=product)
-    else:
-        comments = Sentiment.objects.filter(sentiment=sentiment, product=product)
-    serializer = SentimentSerializer(comments, many=True)
-
-    return Response(serializer.data)
-
 @api_view(["GET"])
 def get_customers(request):
     customers = Customer.objects.all()

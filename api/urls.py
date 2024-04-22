@@ -12,9 +12,8 @@ router.register(r"sale", SaleViewSet, basename="sale")
 urlpatterns = router.urls
 
 urlpatterns = [
+    # General App Routes
     path("", include(router.urls)),
-    # path("register/", RegisterAPI.as_view()),
-    # path("login/", LoginAPI.as_view()),
     path("customers/", get_customers),
     path("products/", ProductAPI.as_view()),
     path("product/<int:product_id>/", get_product),

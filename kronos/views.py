@@ -22,58 +22,25 @@ def get_product(request, product_id):
     serializer = ProductSerializer(product)
     return Response(serializer.data)
 
-
-# class RegisterAPI(APIView):
-#     def post(self, request):
-#         data = request.data
-#         serializer = RegisterSerializer(data=data)
-
-#         if not serializer.is_valid():
-#             return Response({
-#                 "status": False,
-#                 "message": serializer.errors
-#             }, status.HTTP_400_BAD_REQUEST)
-
-#         serializer.save()
+@api_view(["GET"])
+def comments_by_prod(request):
+    class SentimentSerializer(serializers.ModelSerializer):
+        customer_name = serializers.CharField(source='customer.name', read_only=True)
         
-#         return Response({
-#             "status": "True",
-#             "message": "User Created",
-#         }, status.HTTP_201_CREATED)
-    
-# class LoginAPI(APIView):
-#     def post(self ,request):
-#         data = request.data
-#         serializer = LoginSerializer(data = data)
+        class Meta:
+            model = Sentiment
+            fields = ['id', 'customer_name', 'sentiment', 'product', 'comment']  # Include 'customer_name'
 
-#         if not serializer.is_valid():
-#             return Response({
-#                 "status": False,
-#                 "message": serializer.errors
-#             }, status.HTTP_400_BAD_REQUEST)
-        
-#         user = authenticate(username = serializer.data["username"], password = serializer.data["password"])
-#         if not user:
-#             return Response({
-#                 "status": False,
-#                 "message": "Invalid Credentials"
-#             }, status.HTTP_400_BAD_REQUEST)
+    sentiment = request.GET.get("sentiment")
+    product = request.GET.get("product")
 
-#         token, _ = Token.objects.get_or_create(user=user)
+    if sentiment == "ALL":
+        comments = Sentiment.objects.filter(product=product)
+    else:
+        comments = Sentiment.objects.filter(sentiment=sentiment, product=product)
+    serializer = SentimentSerializer(comments, many=True)
 
-#         return Response({
-#             "status": "True",
-#             "message": "User Logged In",
-#             "token": str(token)
-#         }, status.HTTP_201_CREATED)
-
-# @api_view(["GET"])
-# def get_customers(request):
-#     # Query all users excluding superusers
-#     customers = User.objects.filter(is_superuser=False)
-#     serializer = UserSerializer(customers, many=True)
-
-#     return Response(serializer.data)
+    return Response(serializer.data)
 
 class ProductAPI(APIView):
     def get(self, request):
