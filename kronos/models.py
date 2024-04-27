@@ -6,6 +6,7 @@ class Product(models.Model):
     cost = models.DecimalField(max_digits=7, decimal_places=2)
     recommended_price = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(blank=True, null=True, upload_to="prod_img")
 
 class Customer(models.Model):
     GENDER = [

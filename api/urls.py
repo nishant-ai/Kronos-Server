@@ -1,6 +1,8 @@
 from kronos.views import *
 from dashboard.views import *
 
+from django.conf import settings
+from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 
